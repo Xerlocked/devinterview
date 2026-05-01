@@ -65,6 +65,19 @@ function renderCategoryPage(category) {
 
   // Progress bar
   updateProgress(category);
+
+  // Render LaTeX Math
+  if (window.renderMathInElement) {
+    renderMathInElement(content, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false},
+        {left: '\\[', right: '\\]', display: true}
+      ],
+      throwOnError: false
+    });
+  }
 }
 
 function createQuestionCard(categoryId, question) {
