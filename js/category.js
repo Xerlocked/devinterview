@@ -66,18 +66,8 @@ function renderCategoryPage(category) {
   // Progress bar
   updateProgress(category);
 
-  // Render LaTeX Math
-  if (window.renderMathInElement) {
-    renderMathInElement(content, {
-      delimiters: [
-        {left: '$$', right: '$$', display: true},
-        {left: '$', right: '$', display: false},
-        {left: '\\(', right: '\\)', display: false},
-        {left: '\\[', right: '\\]', display: true}
-      ],
-      throwOnError: false
-    });
-  }
+  // Render LaTeX Math (wait for KaTeX to be fully loaded)
+  renderKaTeX(content);
 }
 
 function createQuestionCard(categoryId, question) {
@@ -200,6 +190,28 @@ function formatAnswer(text) {
     .replace(/\n/g, '<br>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/`(.+?)`/g, '<code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;font-family:var(--font-mono);font-size:0.85em;">$1</code>');
+}
+
+function renderKaTeX(element) {
+  const katexOptions = {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ],
+    throwOnError: false
+  };
+
+  if (window.renderMathInElement && window.katex) {
+    renderMathInElement(element, katexOptions);
+  } else {
+    document.addEventListener('katex-ready', () => {
+      if (window.renderMathInElement) {
+        renderMathInElement(element, katexOptions);
+      }
+    }, { once: true });
+  }
 }
 
 function escapeHtml(text) {
