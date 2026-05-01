@@ -108,7 +108,7 @@ function build() {
   }
 
   // Sort categories in a logical order
-  const order = ['자료구조_알고리즘', 'cpp_운영체제', '선형대수_그래픽스_렌더링_최적화', '언리얼_Directx'];
+  const order = ['자료구조_알고리즘', 'cpp_운영체제', '선형대수_그래픽스_렌더링_최적화', '언리얼_Directx', '인성질문'];
   categories.sort((a, b) => {
     const ai = order.indexOf(a.id);
     const bi = order.indexOf(b.id);
