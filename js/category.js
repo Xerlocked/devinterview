@@ -84,7 +84,7 @@ function createQuestionCard(categoryId, question) {
   card.innerHTML = `
     <div class="question-card__header">
       <span class="question-card__number">Q${question.number}</span>
-      <p class="question-card__text">${escapeHtml(question.text)}</p>
+      <p class="question-card__text">${formatAnswer(question.text)}</p>
     </div>
 
     <div class="answer-section">
